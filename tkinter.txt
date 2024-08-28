@@ -1,0 +1,154 @@
+tkinter
+
+turtleye cok benzer yapıda ama turtleden  daha gelişmiştir 
+kullanımlar komutlar benzer yapıdalar
+
+window = tkinter.Tk() diyerek bir pencere oluşturduk
+
+window pencere adımız
+window.title("baslık adı")
+window.minsize(widht = xx, height = yy) pencere boyutu
+
+window.mainloop() ile pencereyi kapat
+
+---label
+my_Label = tkinter.Label(text = "istedigimiz metin") bir tane label oluşturduk
+paranteze bir sürü şey ekleyebiliyoruz.Bir sürü şey var text bunlardan birisi
+ekledigimiz şeyleri
+
+my_Label.config(""örnek= bg arka plan fg on plan renkleri"" labeldeki şeylerin aynısı) diyerek herşeyi değiştirebiliyoruz)
+
+---PACK (ORTALAMA YAZDIRMA)
+my_Label.pack() komutuyla yazdırdıgımız labeli ortalayarak YAZDIRIYORUZ
+pack komutunu eklemesek hiç bişey yazmıyo
+
+my_label.pack(side = "left") sola yerleştirir
+side left right bottom=aşagı top= yukarı
+komutlarıyla yer verebiliyoruz
+top yazmasam bile paranteze bişey yazmazsam top ile çalıştırır
+
+birkaç tane pack komudu calıstıysa hepsi alt alta yazılır
+
+
+---PLACE
+placenin packtan farkı istedigim yere koyabiliyorum packlanecek dosyayı
+
+my_label.place(pack edecegim şeyi hangi x ve y değerlerine koyacagımı göstermem gerekiyor)
+x ve y değerini eklyecegim şeyin yükseklik ve enine göre ayaarlarım
+my_label.winfo_heigth(weight) ile uzunluk ve genişligini bulabilirim
+
+
+---BUTTON (EKRANA BUTON EKLEME)
+my_Button = tkinter.Button(text = "this is a button" , command = (tıklanınca ne yapacagını söylüyoruz))
+
+NOT: command a fonksiyon eklerken eklenecek fonksiyonun commandın yazzıldıgı satırın ustunde olmasına dıkkat et
+
+---ENTRY (KULLANICIDAN GİRDİ ALMA)
+my_Entry = tkinter.Entry(widht = "genişliklik vermek önemli bazen görünmez" height = "" )
+
+uzunluk ve genişlik vermek görüntü açısından önemli
+
+my_Entry.get() fonksiyonu ile girdi penceresine yazılanları alabiliyoruz.
+
+---GRİD
+
+my_label.grid(row=0,column=0)
+row yatay column kolon
+
+bununla ekranı bolebilirim böldügümde ve yazılmasını istedigim yeri söyledigimde toplam ekrana yazdırılacak eleman sayısına göre row ve column oluşturuyor 3 eleman varsa max 3 row oluşturabilirsin ama sen rowa 4 dersen yine 3 e yazdırır aynı şey column da da geçerlidir
+
+not:row ve column kullandıgımızda yukseklıgı genişligi bölmede yazdırdıgımız şeyin boyutlarına göre ayarlar
+
+------------alakasız
+from random import randint diyerek randomdan randinti import ettim eğer randomun her şeyini import etmek istiyosam
+from random import * ı kullanılırım
+bunu yaparak random.randint dememe gerek kalmaz
+sadece randint kullanarak fonksiyonu çalıştırabilirim.
+
+
+---padx pady
+label/button/entry.config(padx = 100, pady=100)
+diyerek x ve y ekseninde 100 piksellik boşluk bırakabilirim.
+bunu penceremde de yapabilirim
+
+
+---text
+text ile entry aynı mantıkta sadece entry ile tek satırlık girdi alabilirken text ile satırı belirlenecek şekilde girdi alabilirim
+
+entrydeki get komutu bunda da çalışır ama farklı bir şekilde detay vermemiz gerekiyor
+
+text.get("1.2",tkinter.END) bu komutla 1.satırdaki 2.indisli elemandan sonuncu elemana kadar hepsini oku
+
+12.6,Tkinter.End 12 satırdaki 6.elemandan sona kadar ÖRNEK
+
+---.focus()
+bu fonksiyonla entry ve text ler arasında imlecin basşlangıcta hangısında olacagını seçebiliyoruz
+
+my_entry.focus() dersem başlangıcta imleç bu entryde olur
+
+---scale
+
+yukarı aşagıya ındırmek için bi bar oluşturur
+
+def scale_selected(value): text ve entrydeki get fonksiyonundan farklı olarak fonksiyona değer atadım.Cünkü command bolumunden sureklı deger geliyor bana.Bu yuzden bunu fonksiyona parametre olarak vermeliyim.Hareket ettirdikçe bişeyler yazdırır
+    print(value)
+
+my_scale = tkinter.Scale(from_= 0,to = 50,command=scale_selected) 0ile 50 arasında olacagını seçtim
+my_scale.pack() ekrana pack ettim
+
+---spinbox
+
+seçim yapmak için yatay bir ekran çıkartıyor bu ekranda seçimler yapabiliyorum
+
+def spinbox_selected():
+    print(my_spinbox.get()) bunda değer girmeye gerek yok direkt get fomksiyonu çalışıypor
+
+my_spinbox =tkinter.Spinbox(from_=0,to=50,command=spinbox_selected) aralık belirledim
+my_spinbox.pack() command ile fonksiyonu söledim
+
+---radiobutton
+
+ekranda birkaç tane seçilmesi gereken şey varsa bununla tik atabiliyorum
+
+def radio_selected():
+    print(radio_checked_state.get()) get ile variableyi yazdırdım
+
+radio_checked_state = tkinter.IntVar() kontrol için değişken gerekiyor tıklandı mı diye bir nevi variabledeki değer buna atanıyor
+
+my_radiobutton = tkinter.Radiobutton(text="1.option",value=10,variable=radio_checked_state,command=radio_selected) variable ile tıklanınca ne döndürdügünü görüyorum if ile tıklandıgını anlatırım pcye command ile tıklanınca fonksiyonu çalıştırdım
+
+my_radiobutton2 = tkinter.Radiobutton(text="2.option",value=20,variable=radio_checked_state,command=radio_selected)
+
+my_radiobutton.pack()
+my_radiobutton2.pack()
+
+
+---listbox
+
+herhngi bir listeyi kullanıcıya daha düzgün yazdırmaya yarar
+
+def listbox_selected(event):
+    print(my_listbox.get(my_listbox.curselection()))
+
+my_listbox = tkinter.Listbox()
+name_list = ["atil","mustafa","çağla","ahmet"]
+for i in range(len(name_list)):
+    my_listbox.insert(i,name_list[i])
+my_listbox.bind('<<ListboxSelect>>',listbox_selected)
+my_listbox.pack()
+
+bu kodla beraber klkullanıcının oluşturdugum liste boxundan birini seçtiginde bana döndürdügünü görürüm.Bunu kullanacagım zaman araştırmam gerkeiyor biraz karışık.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

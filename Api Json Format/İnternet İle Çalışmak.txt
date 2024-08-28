@@ -1,0 +1,211 @@
+API NEDİR
+
+apinin amacı developerlerin backende erişmesini sağlar.
+apiyle eriştiğim bilgiler çok karmaşık olur.Bunları düzeltip daha düzgün bir veri almak istiyorsam bu ALDIĞIM JSON VERİSİNİ düzeltmem gerekiyor.Bunun içinde coda beautify uygulamasını kullanmam gerekiyor.
+
+json= gösterim şekli uygulamalar sunucular arası haberleşme için kullanılır.
+hepsini tek dizi içinde gösteriyor bilgisayarlar kolay anlasın diye.
+
+python da htttp şeklindeki veriler için request kütüphanesi kullanılır.
+
+Json tipindeki aldığımız apileri pythonda request ile kullanırız.
+
+requestin belli fonksiyonları vardır.get,deleteiput gibi...
+
+request.get(json verimizin linki)nin sonucunu bir değişkene atadığımızda bu değişkeninn sonucunu belli kodlaarla alırız.
+1XX tipi kodlar bilgilendirme kodudur.
+2xx tipi kodlar başarılı oldugunun göstergesidir.(200 onaylandı.201 oluşturuldu gibi.) detayına bak
+3xx tipi kodlar yönlendirme içeren kodlardır
+4xx tipi kodlar hatalardır.
+5xx tipi kodlar sunucu hatalarıdır.
+200 tipi geliyosa doğrdudur.
+
+BU 100 200 300 400 tipi kodlara http tipi kodlar denir.
+
+jsonu eklerken sorun yaşayıp yaşamadıgımızı bilmek için değişken adı.status_code kullanırız.
+
+json formatındaki verimi değişkenadı.text ile alabilirim yada değişkenadı.json() ile alabilirim.
+Json ile yaparsam veride seçme işlemi yapabilirim.Mesela veride 2 tane seçici öszellik var birini seçebilirim gibi.
+
+örnek:
+for crypto in response.json():
+    print(crypto["currency"])
+json ile aldıgım veri içindeki currency kısmını aldım. text ile yapılmaz json ile yapılır önemli.
+
+NOT: json veri çekip düzenleyeceğim zaman bu veriyi raw türünde çekmem gerekiyor.RAW TÜRÜNDE VERİYE İŞLENMEMİŞ HAM VERİ DENİR.
+-------------------
+def get_crypto_data():
+    response = requests.get("https://raw.githubusercontent.com/atilsamancioglu/K21-JSONDataSet/master/crypto.json")
+    if response.status_code == 200:
+      return response.json()
+
+
+crypto_response = get_crypto_data()
+user_input = input("Enter your currency:")
+for crypto in crypto_response:
+    if crypto["currency"] == user_input:
+        print(crypto["price"])
+        break
+
+BU KODLA JSON VERİMİZDEKİ İSTEDİĞİM VERİNİN FİYATINI BULABİLİYORUZ.
+BU internetten veri çekme işlemidir.
+---------------------
+concurrent aynı anda birkaç program çalıştırma işine denir.
+
+--------------------------------------------------------------------------
+threading kütüphanesi ve kodları
+
+import threading
+import requests
+import time
+
+def get_data_sync(urls):
+    st = time.time()
+    json_array = []
+    for url in urls:
+        json_array.append(requests.get(url).json())
+    et = time.time()
+    elapsed_time = et-st
+    print("exeution time: ",elapsed_time,"seconds")
+    return json_array
+
+class ThreadingDownloader(threading.Thread):
+    json_array=[]
+    def __init__(self,url):
+        super().__init__()
+        self.url = url
+
+    def run(self):
+        response = requests.get(self.url)
+        self.json_array.append(response.json())
+        print(self.json_array)
+        return self.json_array
+
+def get_data_thereading(urls):
+    st = time.time()
+    threads = []
+    for url in urls:
+        t = ThreadingDownloader(url)
+        t.start()
+        threads.append(t)
+    for t in threads:
+        t.join()
+        #print(t)
+    et = time.time()
+    elapsed_time = et - st
+    print("exeution time: ", elapsed_time, "seconds")
+
+
+urls = ["https://postman-echo.com/delay/3"]*10
+#get_data_sync(urls) 40sn
+get_data_thereading(urls)
+------------------
+bu fonksiyondaki class kullanmammın sebebi her seferinde çalıştırıp thread kodu sırayla değilde art artda çaıştırmak.
+------------------
+::::::::::::sondaki get_data_thereading fonksiyonun açıklaması::::::::::::::
+st = time.time(): Fonksiyonun başlangıcında, işlem süresini hesaplamak için bir zaman damgası alınır.
+
+threads = []: İş parçacıklarını depolamak için bir liste oluşturulur.
+
+for url in urls:: urls listesindeki her URL için bir iş parçacığı oluşturulur ve başlatılır.
+
+t = ThreadingDownloader(url): Her URL için bir ThreadingDownloader örneği oluşturulur. Bu, URL'yi alır ve ilgili iş parçacığını oluşturur.
+
+t.start(): Her iş parçacığı başlatılır. Bu, iş parçacığı sınıfındaki run() metodunu çağırır ve iş parçacığını çalıştırır.
+
+threads.append(t): Oluşturulan her iş parçacığı, threads listesine eklenir.
+
+for t in threads:: Oluşturulan tüm iş parçacıklarını tek tek almak için bir döngü başlatılır.
+
+t.join(): Her iş parçacığı için join() yöntemi çağrılır. Bu, ana iş parçacığının (bu durumda ana programın) bu iş parçacığının tamamlanmasını beklemesini sağlar. Yani, bu kod, tüm iş parçacıklarının bitmesini bekler.
+et = time.time(): Tüm iş parçacıklarının tamamlanmasından sonra, işlemin bitiş zamanı alınır.
+
+elapsed_time = et - st: Toplam işlem süresi hesaplanır. Başlangıç zamanından (st) bitiş zamanına (et) kadar geçen süre hesaplanır.
+
+print("execution time: ", elapsed_time, "seconds"): Elapsed_time değeri ekrana yazdırılır, bu da toplam işlem süresini gösterir.
+
+
+-------------------
+asyncio
+aiohttp kütüphaneleri ve kullanımı
+(BUNLAR BELKİ HİÇ KARŞIMA ÇIKMAYAK AMA BELKİ İŞİME YARAYABİLİR.)
+coroutines kullanırken akla gelmesi gereken şeyler : durdurulup devam ettiriliebilen bir yapı oluşturulur.
+
+-async = senkron olmayan bir fonksiyon yazılacagını gösterir
+-await = async fonksiyonunda yazılcaka fonksiyonun sonucunu beklememiz için kullanılır
+
+
+async fonksiyonlarıla ilgili detaylar CryptoCrazy dosyasının içinde DİKKAT.
+-------------------------------------------------
+
+get ve post farkı
+
+not:POST İLE JSONA YENİ BİR VERİ EKLENEBİLİR.ben su anda fake bir veriyle uğraştıgım için değişmiyor.
+
+
+import requests
+import json
+
+#GET
+#user_input = input("enter id:")
+#get_url = f"https://jsonplaceholder.typicode.com/todos/{user_input}"
+
+#get_response = requests.get(get_url)
+#print(get_response.json())
+
+
+#POST
+to_do_item = {'userId': 2,'title': 'my to do','completed':False}
+post_url = "https://jsonplaceholder.typicode.com/todos"
+headers = {"Content-Type" : "application/json"}
+#post_response = requests.post(post_url,json=to_do_item,headers=headers )
+#print(post_response.json())
+
+print(json.dumps(to_do_item))
+
+#pythondaki json kütüphanesi ile normal sözlük olan bir yapıyı jsona çevirebilirim.
+#verimi data formatında veya json formatında yollayabilirim.Bu duruma göre değişebilir.
+#bazen verilerin json olarak değpilde data olarak gönderilmesi istenebilir bu durumda veriyi json ile çevirip data olarak yollayabiliirm.
+
+
+
+#header bilgisi :  post ile yada json verisine bir veri tipi eklemek istendğinde veriyi ekleyen kişinin verebiliecegi bilgilerdir.( DATE,TİME,DAY ETC.)
+#header ile içeriklerin bilgileri eklenebilir.
+
+----------------------------------------------
+put patch delete
+
+patch genelde çok kullanılmaz.
+PUT İLE VERİ TABANINA YENİ BİR VERİ EKLENİR
+PATCH İLE VERİNİN BELLİ BİR KISMI DEĞİŞTİRİLİR
+DELETE İLE BELİRLENEN ID DEKİ VERİ SİLİNİR.,
+KULLANIMLARI AŞAGIDA.
+
+
+import requests
+
+get_url = f"https://jsonplaceholder.typicode.com/todos/10"
+
+get_response = requests.get(get_url)
+print(get_response.json())
+
+#put
+to_do_item_15 = {'userId': 2,'title':'put title', 'completed': False}
+put_response = requests.put(get_url,json=to_do_item_15)
+print(put_response.json())
+
+#patch çok kullanılmaz
+to_do_item_patch_15 = {"title" : "Patch Test"}
+pathc_response = requests.patch(get_url,json=to_do_item_patch_15)
+print(pathc_response.json())
+
+#delete
+
+delete_response = requests.delete(get_url)
+print(delete_response.json())
+print(delete_response.status_code)
+
+
+
+
+

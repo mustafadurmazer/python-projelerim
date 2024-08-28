@@ -1,0 +1,194 @@
+
+(ls) içinde oldugumuz klasördeki dosyaları gösterir
+
+(cd) komutu +gitmek istediğin klasörün ismi eksiksiz yazıldıgında o klasöre gidersin.
+NOT:ls le gösterilen dosyalara cd ile gidebilirim.
+
+(cd ..) komutu ile oldugum klasörden bir geriye giderim
+
+(touch) komutu ile bulundugun dizine yeni klasör yada dosya ekleyebilirim
+NOT: musta@LAPTOP-BHOV8C0J MINGW64 ~/Desktop
+$ touch test1.txt  ---DESKTOPA TEXT1.TXT EKLEDİ
+
+(rm) komutu ile silinecek şeyin adını yazdıgımda şeyi(KLASÖR DEĞİLSE) silinir
+NOT: musta@LAPTOP-BHOV8C0J MINGW64 ~/Desktop
+$ rm test1.txt ---SİLİNDİ
+
+(rm -rf) komutu ile klasör silinir
+NOT: KLASÖRÜ SİLER VE ÇÖP TENEKESİNDE BİLE DURMAZ
+
+(mkdir) komutu ile klasör oluşturulur
+
+ git config --global user.name "Mustafa Durmazer"
+ git config --global user.email "mustafadrmzr2003@gmail.com"
+bunları tanıtarak gitte yazdıgım bir kodun sadece benim tarafından yazıldıgı kanıtlanıyor
+
+
+-----GİT MANTIĞI-----
+
+GİT DEMEK UZUN BİR PROJEDE ARA SAVE ALMAK VE BİRDEM ÇOK KİŞİ ÇALIŞIYOSA PROJEYİ BÖLMELERE AYIRMAK DEMEKTİR
+
+git bash üzerinden klasöre gelip git init yazdıgımda klasörde giti aktif etti ama bu 
+
+klasörde görünmez ls yazınca çıkmaz(gizlidir)
+
+ls yazınca gözükmez ama terminalden ls -la(listeler) gizli klasörleri gösterir gitte gözükür
+
+cd .git yazınca da çıkabilir .gizli dosyalar içindir
+
+git init yapmadan once git status yap git varsa tekrar ekleme sorun çıkabilir.
+
+COMMİT----------------
+
+kod yazdıktan sonra kaydetmeye commit denir
+
+git add kullanarak dosyamızı takip ettiriyoruz
+
+git commit kullanarak bunu local repoya aktarıyoruz bir nevi save alıyoruz
+
+git bash de git add <dosyaadı> yaparak o dosyalı akeleyebiliyoruz
+yanlış eklediysek git rm --cached <dosyaadı> yaparak kaldırabiliyoruz
+
+not: bunları yaparken dosyam silinmez aynı şekilde durur sadece git bu dosyayı takip eder yada etmez.
+
+not: dosyaların hepsini eklemek istersem git add . yaparak hepsini eklerim
+
+commit eklemek için git commit -m "commitin bilgisi(text1.txt added mesela)"
+
+commit eklendikten sonra git log kullanarak commitleri görebilirim
+
+burada commitlerin en zaman eklendiği kimin ekledigi falan eksiksiz şekilde yazar.
+commit 3e1cb22f3f9b4daee348154abd02253e2423bcac (HEAD -> master)
+Author: Mustafa Durmazer <mustafadrmzr2003@gmail.com>
+Date:   Sat Oct 28 19:22:28 2023 +0300
+
+    test1.txt added
+
+3e1cb22f3f9b4daee348154abd02253e2423bcac bu id de commitime özel bir id dir.Bu id ile commitimi bulabilirim.
+
+commitlediğim dosyaya değişiklik yaptıysam eğer git add ve git commit ile onu tekrardan kaydetmeliyim.kaydetmezsem eğer değişiklik silinir ve eski COMMİT ÜZERİNE KAYDOLMAZ.
+
+commitledğim bir dosta uzerinde değişiklik yaptıktan sonra bu değişikliği commitlemeden geri almak istiyorsam git restore <dosyaadı> girmeliyiz
+bunu yaparak yaptıgım değişiklikleri en son ki commite geri alıyorum.
+
+branchhh
+
+git branch yazarak hangi branch da oldugumu görürüm daha önce branch eklemediysem master yada mainde olarak gözükürüm
+
+branch eklemek için git branch "branch ismi" yazabilirim git branch yazdıgımda main ve diğer branchın ismi yazar.
+
+branchlar arası değişiklik yapmak için git switch "diğer branch adı" yapılır
+git branch yaptıgımda diğer branch gözükür
+
+git log yaptığında en sonki committe head gözükür bu hangi branchta oldugunu gösterir
+head en sonki committe gözükür
+
+branch ı değiştirip kod yazdıgımda commit yaptıgımda her şey o brancha kaydolur ben branchı değiştirdigim zaman o branchtaki commitler gözükmez.o brachtaki commitleri görmek için commitin kaydoldugu brancha gitmem gerekiyor.
+
+
+MERGE-----
+
+yazdıgım diğer branchı maine mastera aktarmnak için
+git merge <chapteradı> kodunu kullanabiliriz bu kodla diger branchtaki kodlar maine eklendi.
+ÖNEMLİ MERGE KULLANMADAN ONCE MAİN BRANCHINDA OLDUGUMUZDAN EMİN OLMALIYIZ
+
+merge ile diger branchtekileri maine aktardık ama direk ucuna bagladık yani bir nevi diger branchın ucuna maini bagladık BUNA DA FAST-FORWARD DENİR.
+
+NOT: eğer maine 2 veya daha fazla branch eklemek istersek ilkinde hata vermez ama ikincisinde karışmasın diye yeni bir commit alıp ikisinide birleştirir.BUNU YAPTIGINDA EKRANA YENİ BİR SAYFA AÇILIR O SAYFADAN :WQ İLE ÇIKILIR.
+
+YENİ COMMİTE DEFAULT OLARAK BİR MESJA YAZIP OLUŞTURDU VE DİGER COMMİTKLERİ ONA AKTARDIİ.
+
+
+REVERT VE RESET-----------------
+reset komutuyla gitmek istediğimiz commit in önündeki tüm  commitler silinir ve geri gelmez.Bu yuzden pek kullanılmaz.
+reset kullanımı bu şekilde git reset --hard <gidilcek commit idsi> diğer commitler silinir head oraya gelir
+
+revert komutuyla gidilmek istenen commit onun önündeki komutların önüne getirilir.
+mesela c1 c2 c3 c4 c5 ben 3 e gitmek istiyosam sıralama şöyle olur:
+c1 c2 c3 c4 c5 c3(revert)
+
+revert syntaxı git revert<gidilcek commit idsi>
+revert kullanırken çakışma olur bu çakışmayı sublime text ile açıp düzelttikten sonra git revert --continue diyerek devam ederiz.
+
+revert diger commitleri silmediği için daha çpk kullanılır
+
+
+stash------------
+stash yapısı commitlemedin ama 2 tane branchın var bir düzenleme yaptın daha sonra add ledin ama commitlemedin.kaybolsun istemiyosun ama durmasında bunun için git stash yapıyosun bu depoya alıyor en son committen itibaren hepsni bir yerde tutuyor depoyu görmek için git stash list kodunu çalıştırırız
+
+git stash pop yaptıgımda değişiklik geri geliyor daha sonra commit yapabilirim.ÖNEMLİ
+az karşılaşırım ama biliyim 
+NOT:pop çalıştıktan sonra stash listteki dosyalar silinir
+
+tag-----
+git tag komutuyla yazdıgım koda versiyonlama yapabilirim
+iki kere çalıştırıp farklı şeyler yazarsam çagırdıgımda ikisinide yazdırır.
+
+------------KODU GİTHUBA ENTEGRE ETME
+
+githubda repo oluşturdugumda bana bir yol haritası veriyor
+ben kodumu git add ve git commitle commitledikten sonra githubdaki repomun içinde git remote add origin(repo linki) olan kısmı kopyalayıp git bashda calıstırıyorum.
+daha sonra bu kod linki origin olarak aldıglamamı saglıyor bir nevi linke isim veriyor.
+git bashda git remote çalıştırdıgımda origini(takma adı)veriyor
+
+daha sonra githuba bu kodu yüklemek için
+git push origin(takma ad) master(branch adı) kodunu çalıştırıyorum.
+bunu çalıştırdıgımda commitledigim ne varsa githuba yukleniyor
+
+kac defa commit ettiysem ediyim fark etmez git push origin(takma ad) master(branch adı) bu komutla kodumu githuba yuklerım
+
+-------başka birine repoda izin verip düzenlettirmek---------
+
+repoya girdikten sonra coda kısmındaki url yi kopyaladıktan sonra git clone (kopyalanan url) girdikten sonra githubtaki proje tamamen bilgisayara indi.
+
+diğer kişiden mainde değilde yeni bir branchta çalışmamsını istersek git branch yaptıgında koddaki bracnhları git branch -r yaptıgında origindeki branchları görür
+ 
+git branch xxx diyerek branch oluşturdu switch ile branch değiştirdi add ve commitle yeni bir commit ekledi
+
+git push origin "xxx" dediğimizde xxx branchını push edecek koduma bu kodu çalıştırdıgımda githubdaki repoma yapılan değpişiklik gelecek(izni varsa)
+
+repoda branchları görürüm değiştirebilirim.
+
+pull request ana koda dahil et demek 
+ repoda compare&pull request kısmından ana brancha eklemek istedigimi söylerim
+buna tıkladıgında conflict varmı diye kontrol eder varsa sen halletmelısın.
+
+daha sonra proje sahibi repoya girdiginde pull request kısmıbdab benım ıstegımı gorecek detaylarına bakabilir
+onaylaersa eğer kodda yapılan değişiklik maine de(otomatik) kaydedilir.
+
+
+----git fetch git pulll*------------
+
+git fetch komutu ile localdeki ve githubdaki projemi karşılaştırabilir aralarında fark olup olmadıgını görürüm
+mesela 2 commit geridesin gibi
+
+git pull komutu ile değişiklikleri localdeki projeme indirebilirim.
+
+git push ile projemi yolluyodum unutmaaa
+
+
+
+https://github.com/mustafadurmazer/PythonMesajBotu.git
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

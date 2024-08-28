@@ -1,0 +1,44 @@
+değişkenimin ismi draw olsun
+
+draw = turtle.Screen() diyerek ekranı açtık
+draw.bgcolor(renk ismi yada kodu) arka planı renklendirdik
+
+turtlevariable1= turtle.Turtle()
+turtlevariable1.forward(100) 100 piksel sola git dedik.
+kodları kütüphanesinden bakarak da yapabiliriz.
+
+tanımladıgım turtlevariable1 beniim çizim aracım ben bunu 90 derece saga 100 piksel ileri falan diyerek yonlendıririm ve cizimimi yaparım.
+
+örnek kod:
+bu koddaki çizim aracım turtle_instance
+turtle_instance = turtle.Turtle()
+turtle_instance.forward(100)
+turtle_instance.right(90)
+turtle_instance.forward(100)
+turtle_instance.right(90)
+turtle_instance.forward(100)
+turtle_instance.right(90)
+turtle_instance.forward(100)
+turtle.done() ---- bu pencereyi kapatma diyor
+turtle.mainloop() ---- done den daha iyi çalışıyor onu da dene
+
+bu kod kare yapma kodu.
+
+turtlevariable1.colour("renk ") yazdıgımızda çizdigimiz çizgilerin rengini ayarlarız
+
+turtlevariable1.circle(boyut) daire çizdirmek için kullanılır,
+turtle.speed(0,10,6,3,1) ile çizimi hızlandırabilirim.
+
+-----------------kulanıcından alınan girdiye göre hareket etme
+
+def turtle_forward(): fonsiyon tanımladım
+    turtle.instance.forward(100)
+
+drawing_board.listen() listen komutuyla klavyeden alınan girdiyi dinlemeye başladı
+drawing_board.onkey(fun=turtle_forward,key="space") onkey ile fun denilen kısım çalıştırılacak fonksiyon key denilen kısım fonksiyonun çalışması için girilecek girdi
+
+turtle.instance.clear diyince ekrandaki herşeyi temizler
+drawing_board.onkey(fun=clear_instance, key="c") NOT ONKEYE FONKSİYON GİRERKEN FONKSİYONUN PARANTEZİ YAZILMAZ...
+
+drawing_board.exitonclick() ile listenle başlattıgımız klavye dinlemesi bitirilir.!!!!
+

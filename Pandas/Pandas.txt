@@ -1,0 +1,317 @@
+Pandas Kütüphanesi numpy gibi gerekli genelde veri bilimi için kullanılan bir kütüphanedir.
+
+pd.series ile verilerle indexleri eşleştirebilirim.
+
+age_list = [50,60,55,65]
+name_list = ["james","lars","kirk","rob"] 
+pd.Series(name_list,age_list)
+50    james
+60     lars
+55     kirk
+65      rob
+dtype: object
+pd.series içine verdiğim ilk şey datayı 2. şey indexi verir.Bu yüzden istediğimi alabilmek için tam tersini girmeliyim.
+pd.Series(data=age_list,index=name_list)
+BUNUN GİBİ OLMALI
+ÇIKTISI:
+james    50
+lars     60
+kirk     55
+rob      65
+dtype: int64
+------------
+pandas ile numpy beraber kullanılabailir.
+new_numpy_array = np.array([10,20,30,40])
+pd.Series(new_numpy_array)
+0    10
+1    20
+2    30
+3    40
+dtype: int32
+ numpy ile beraber kullanıldı.pandas otomatik olarak listenin her değerine index atar. BUNA DİKKAT.
+
+pandas kütüphanesi fark etmeksizin bir numpy dizisi ile normal bir diziyi birleştirebilir.
+pd.Series(data=new_numpy_array,index=name_list)
+james    10
+lars     20
+kirk     30
+rob      40
+dtype: int32
+new_numpy_array: bir numpy dizisi iken
+name_list : bir normal liste 
+bunların ikisini birleştirdi.
+
+my_series["kirk"]  böyle yaparak series içindeki verileri sözlük misali değerlerini alabilirim.
+hatta o değerleri değiştirebilirim ÖNEMLİ
+
+pandas serileriyle oluşturduğum iki değişkeni toplayabikirim.ELEMANLARI AYNI İSE HER İKİSİNİ TOPLAYABİLİR.AMA ELEMANLAR AYNI DEĞİLSE DEĞERİ VERİLMEYEN ELEMANA NAN DEĞERİNİ YAZDIRIR.
+elemanlar aynı ise:
+quiz_results1 = pd.Series([10,20,30],["a","b","c"])
+quiz_results2 = pd.Series([70,80,90],["a","b","c"])
+quiz_results1 + quiz_results2
+quiz_results1 + quiz_results2
+quiz_results1 + quiz_results2
+a     80
+b    100
+c    120
+dtype: int64 olur.
+------------
+elemanlar farklı ise:
+exam_results = pd.Series([10,20,30],["a","b","c"])
+exam_results2 = pd.Series([10,20,30],["a","d","c"])
+exam_results+exam_results2
+a    20.0
+b     NaN
+c    60.0
+d     NaN
+dtype: float64 
+DİKKATTT
+-------------------------
+DATA FRAME
+my_data = np.array([[10,20,30],[20,30,40],[20,50,10],[10,15,20]]) np ile bir matris oluştu
+
+my_names = ["james","lars","kirk","rob"]
+my_columbs = ["jan","feb","mar"] dizi oluşturduk 2 tane
+
+my_data_frame = pd.DataFrame(my_data)
+
+0	1	2
+0	10	20	30
+1	20	30	40
+2	20	50	10
+3	10	15	20
+çıktısı bu olur
+Diziyi yazdırdı.ama ben şu anda satırları ve sutünları adlandırmadım.
+new_data_frame = pd.DataFrame(my_data, index = my_names,columns = my_columbs) onları adlandırmak için bu index ve columns isimlerini dizi olarak verdim.Teker teker de yazaiblirdim.
+jan	feb	mar
+james	10	20	30
+lars	20	30	40
+kirk	20	50	10
+rob	10	15	20
+böyle olur dizimin elemanları geçti.
+new_data_frame["feb"] feb kısmındaki elemanları görürüz.
+
+feb_series = new_data_frame["feb"] bunu bir seriye atıp
+feb_series.mean() normal seri özelliklerini görebiliriz.
+new_data_frame["jan"].mean() yada böyle yapıp araya değişken sokmayız aynı şey.
+
+istenilen kısmı yazdırmak için:
+new_data_frame[["jan","feb"]] yazarız ve sadece jan ve feb deki değişkenler yazdırırlır
+
+new_data_frame.loc["lars"] (.loc) ile aradıgımız satırın tum sutun ozellıklerını bulabiliriz.
+jan    20
+feb    30
+mar    40
+Name: lars, dtype: int32 çıktısı bu olur
+
+new_data_frame.loc["rob"].mean() burda istenilen satırın sutun ozellıklerının ortalamasını aldı.
+
+new_data_frame.iloc[3] isim yazmak istemezsem (.iloc)derim ve index girerim.AYNI ŞEY.
+
+new_data_frame["apr"] = new_data_frame["mar"]*2 yeni bir eleman eklerken eski elemanları kullanabiliriz.
+
+new_data_frame.drop("rob",axis=0)
+#orjinallik bozulmuyor 
+bir satırı veya sutunu silmek istiyorsak drop fonkisyonunu kullanırız.Robu sşlmek istedik ama axis = 0 ise satırdan 1 ise sutundan eleman sileriz 
+ÖNEMLİ.
+BU SİLME İŞLEMİNDE ORJİNAL FRAME SİLİNMEZ.
+new_data_frame.drop("apr",axis=1) KOLONDAN SİLDİ
+new_data_frame.drop("kirk",axis=0) SATIRDAN SİLDİ
+
+new_data_frame.drop("apr",axis=1,inplace = True)
+EĞER ORJİNAL FRAMEDEN DE SİLİNMESİNİ İSTİYORSAK BUNU KULLANMALIYIZ.
+BUNU YAPARSAK İSTENİLEN KISIM ORJİNAL FRAMEDE DE SİLİNİR.
+----------
+frame de belli bir şartı sağlayan kısımları ayırt edebilirim.
+new_data_frame[new_data_frame > 25]
+	jan	feb	mar
+james	NaN	NaN	30.0
+lars	NaN	30.0	40.0
+kirk	NaN	50.0	NaN
+rob	NaN	NaN	NaN
+bu çıktıyı verir
+25den yukarda olanları yazdırır.
+
+new_data_frame[new_data_frame["mar"]>25] 
+sadece mart ayı için 25den yukarda olanları yazdırdı.
+
+new_data_frame.reset_index() index ekleyebilirim.
+	index	jan	feb	mar
+0	james	10	20	30
+1	lars	20	30	40
+2	kirk	20	50	10
+3	rob	10	15	20
+bunun gibi 0 dan n'e kadar index ekler.
+ORJİNAL FRAME DEĞİŞMEZ.
+
+new_data_frame["newindex"] = ["jam","lar","kir","robert"] İNDEX EKLEME
+	jan	feb	mar	newindex
+james	10	20	30	jam
+lars	20	30	40	lar
+kirk	20	50	10	kir
+rob	10	15	20	robert
+
+indexi ekledim ana indexim olsun istiyosam
+new_data_frame.set_index("newindex")
+	jan	feb	mar	newindex
+james	10	20	30	jam
+lars	20	30	40	lar
+kirk	20	50	10	kir
+rob	10	15	20	robert 
+yazdım ve oldu.
+
+new_data_frame.drop("newindex",axis = 1,inplace=True) değişikliğin ORJİNAL FRAME DE ETKİ ETMESİ İÇİN BUNU YAPARIM.
+
+------------------------------------
+
+my_dicti = {"james":[40,30,np.nan],"kikr":[20,np.nan,50],"lars":[30,40,50]} bir tane içinde na lar olan sözlğk oluşturdum.
+my_data_framee = pd.DataFrame(my_dicti) sözlüğü data framenin içine attım.
+
+	james	kikr	lars
+0	40.0	20.0	30
+1	30.0	NaN	40
+2	NaN	50.0	50
+şeklinde olur.
+
+my_data_framee.dropna() yazarsam eğer na yazmayan satırları gösterir.
+my_data_framee.dropna(axis = 1) yazarsam eğer na yazmayan sutunları gösterir.
+ORJİNALLİK BOZULMAZ.
+-----------
+my_new_dicti = {"james":[40,30,np.nan],"kikr":[20,np.nan,50],"lars":[30,40,50],"rob":[45,np.nan,np.nan]} 
+my_neww_frame = pd.DataFrame(my_new_dicti)  FRAME EDİLDİ.
+
+james	kikr	lars	rob
+0	40.0	20.0	30	45.0
+1	30.0	NaN	40	NaN
+2	NaN	50.0	50	NaN
+
+my_neww_frame.dropna(axis = 1,thresh=2)
+#min seviye thresh ile min 2 tane değer yazan satır veya sutunları gösterdi.
+
+james	kikr	lars
+0	40.0	20.0	30
+1	30.0	NaN	40
+2	NaN	50.0	50
+rob elendi.
+
+3 dersem min 3 tane değer olanları gösterir.
+
+my_neww_frame.fillna(20) fillna komutu ile na olan kısımlara 20 ekleriz.20 Yİ DEĞİŞTİREBİLİRİM.
+-----------------------------------
+salary_dict = {"programmin language" : ["python","python","python","swift","java","java"],"name":["a","b","c","d","e","f"],"salary" : [100,90,80,70,60,50]} detaylı bir dict yaptım
+salary_frame = pd.DataFrame(salary_dict)
+
+programmin language	name	salary
+0	python	a	100
+1	python	b	90
+2	python	c	80
+3	swift	d	70
+4	java	e	60
+5	java	f	50
+şeklinde olur.
+
+group_object = salary_frame.groupby("programmin language") tanımladım.Ana kriterim bu diller.
+
+group_object.count()
+	name	salary
+programmin language		
+java	2	2
+python	3	3
+swift	1	1
+
+group_object.min()
+
+name	salary
+programmin language		
+java	e	50
+python	a	80
+swift	d	70
+
+group_object.max()
+
+name	salary
+programmin language		
+java	f	60
+python	c	100
+swift	d	70
+
+bu min ve max sonuçları her iki kolonda da en küçüğü getirdiği için değerler doğru ama harfler yanlış bu yüzden farklı bir yol izlemeliyim.
+
+
+group_object.max("salary")
+	salary
+programmin language	
+java	60
+python	100
+swift	70
+
+group_object.min(numeric_only=True) BUNU YAPARSAM HARFLERE BAKMAZ SADECE SAYILARA BAKAR ONA GÖRE İŞLEM YAPAR DİKKAT.
+	salary
+programmin language	
+java	50
+python	80
+swift	70
+
+group_object.describe() İLE DETAY ALABİLİRİM.
+	salary
+count	mean	std	min	25%	50%	75%	max
+programmin language								
+java	2.0	55.0	7.071068	50.0	52.5	55.0	57.5	60.0
+python	3.0	90.0	10.000000	80.0	85.0	90.0	95.0	100.0
+swift	1.0	70.0	NaN	70.0	70.0	70.0	70.0	70.0
+GİBİ.
+------------------------
+iki tane farklı frame olsun.
+1:my_dict1 = {"name": ["a","b","c","d"],
+           "sport":["basket","futbol","tenis","koşu"],
+           "calories":[100,200,300,400]}
+2:my_dict2 = {"name": ["e","f","g","h"],
+           "sport":["basket","futbol","tenis","koşu"],
+           "calories":[200,50,330,440]}
+
+bu ikisini birleştirmek için 
+pd.concat([my_frame1,my_frame2]) kullanırım
+SIRAYLA HEPSİNİ YAZDIRIR.
+	name	sport	calories
+0	a	basket	100
+1	b	futbol	200
+2	c	tenis	300
+3	d	koşu	400
+4	e	basket	200
+5	f	futbol	50
+6	g	tenis	330
+7	h	koşu	440
+8	i	basket	300
+9	j	futbol	150
+10	k	tenis	320
+11	l	koşu	410
+(indexleri frameye tanıtırken yazdım.)
+my_frame2 = pd.DataFrame(my_dict2, index = [4,5,6,7]) gibi
+(3.listeyi yazmöadım o da vardı.)
+
+
+başka birleştirme yöntemi:
+pd.merge(my_frame1,my_frame2,on="sport")
+	name_x	sport	calories_x	name_y	calories_y
+0	a	basket	100	e	200
+1	b	futbol	200	f	50
+2	c	tenis	300	g	330
+3	d	koşu	400	h	440
+sport dediğim için sportta benzerleri birleştirdi aynı satırda yazdı.
+-------------
+new_salary_frame = pd.DataFrame({"name" : ["james","kirk","lars"],"salary":[10,20,30],"age":[60,65,70]})
+şeklideki bir frame:
+
+new_salary_frame["name"].unique() ile kaç tane farklı isim olduguna bakılır isimler yazdırılır
+
+new_salary_frame["name"].nunique()ile kaç tane aynı isim olduguna bakılır ve isimlerin sayısı döndğrülür
+
+not:FRAMEYE BİR FONKSİYON TANIMLATABİLİRİM.
+def grosstonet(salary):
+    return salary * 0.65 FONKSİYON OLSUN.
+new_salary_frame["salary"].apply(grosstonet)
+apple ile fonksiyonu uyglarımç.
+
+BURADA BİTMİŞTİR.....
+
+

@@ -1,0 +1,100 @@
+NumPy
+
+Bilimsel hesaplama kütüphanesidir.
+
+Not: import ederken kütüphanenin adını uzun uzun yazmak istemiyorsam
+ import numpy as np dersem eğer numpy kütüphanesini np olarak indirir.Yani ben kütüphaneden veri çekerken numpy yazmama gerek yok np yazarak da yanı şeyi yapabilirim
+
+Matrislerin önce satırı sonra sutunu söylenir 4 satır 3 sutun için 4 e 3 matris denir.
+
+Numpy kütüphanesiyle matrislerle işlem yapabilirim.Bu kütüphane sayesinde daha kolay matris işlemi yapılır.
+
+np.array(my_list)
+my_numpy_aray = np.array(my_list) diye bir np.arraye bir liste verdim.Numpy kütüphanesi ile bu dizinin matriste olabilir tüm özellikelrini bulabilirim HAZIR ŞEKİLDE.
+Mesela: min,max,mean,shape(şekil) etc.
+
+matris tanımlamayı normal dizide de matrix_list =  ((1,0,0),(0,1,0),(0,0,0)) bu şekilde yapabilirim.
+
+ÖNEMLİ!!!!!!
+Numpy dizisi normal python dizisinden farklıdır.Bunun sebebi de numpydaki bazı metotların daha kolay çalışmadır.
+
+print(np.arange(0,10,2)) ile 0 ile 10 arasında ikişer artan sayılar oluşturulur.
+
+print(np.ones((10,10))) ile 10a 10 sadece 1den oluşan bir matris oluştururlur
+
+print("\n")
+
+print(np.zeros((10,10))) ile 10a 10 sadece 0dan oluşan bir matris oluştururlur
+
+
+print(np.linspace(0,10,10)) 0 dan 10a kadar eşit olacak şekilde artacak 10 tane sayı oluşturur
+
+print(np.random.randint(1,10,3)) 1 ile 10 arasında 3 tane rastgele sayı üretir.
+print(np.random.randint(1,15,2))
+
+
+my_numpy_list = np.arange(0,20) 
+---------0 dan 20 ye kadar sıralı şekilde dizi üretir
+print(my_numpy_list)          
+
+print(my_numpy_list[4:9:2]) 
+----------numpy listesindeki 4 den 9a kadar olan sayıları ikişer ikişer yazdırdı my_numpy_list [4:9:2] = -10  
+----------NORMAL LİSTEDE OLMAYAN BİR ÖZELLİK: NORMAL LİSTEDE KESTİĞİM BÖLGEYİ DEĞİŞTİREMEZKEN NUMPY KÜTÜPHANESİNDE SLİCİNG YAPTIGIM BÖLGEYİ TAMAMEN DEĞİŞTİREBİLİRİM.
+
+print(my_numpy_list[4:9:2]) 
+--------ÜST SATIRDAN DOLAYI BURASI -10 OLUR 3 TANE
+ 
+other_list =np.arange(0,15)
+other_list[4:10]
+slicing_list = other_list[4:10]
+print(slicing_list)
+slicing_list[:] = 100
+print(slicing_list) 
+---------BİR BAŞKA NUMPY KÜTÜPHANESİ ÖZELLİĞİ: BİR NUMPY DİZİSİNİN BİR KISMINI SLİCİNG EDİP DAHA SONRA O KISMI BAŞKA BİR SATIRDA DEĞİŞTİRİRSEN ANA DİZİDEKİ ELEMANLARDA DEĞİŞİR DİKKATTTTTTT!!!!!!!!
+
+print(other_list)
+
+numpy_list_3 = np.arange(0,20)
+numpy_list_3_copy = numpy_list_3.copy() 
+-----------BUNUN OLMAMAMASI İÇİN DİZİMİN AYNISININ .COPY METOTLUSUNU BAŞKA BİR FONKSİYONA ATARIM BÖYLELİKLE ATADIGIM FONKSİYONDAKİ DEĞİŞİKLİKLER ANA FONKSİYONA YANSIMAZ ÖNEMLİ
+print(numpy_list_3)
+print(numpy_list_3_copy)
+
+slicing_3 = numpy_list_3_copy[4:9]
+print(slicing_3)
+slicing_3[:] = -100
+print(numpy_list_3)
+print(slicing_3)
+
+print("\n\n\n")
+new_array = np.random.randint(1,150,25) 1 le 150 arasında rastgele 25 sayı üretti
+print(new_array)
+
+print(new_array>50) numpyın kolaylıgıdır Bununla new array numpy listesindeki 50 den büyük sayıları yazdırır
+
+result_array = new_array>50 sonuç dizisine atadım
+
+new_array[result_array]   
+print(new_array[result_array]) ve daha sonrada bunu yazarsam new array dizisindeki result array sartını saglayanları yazdırır
+last_array = np.arange(0,30)
+print(last_array+last_array)  Numpyle birlikte dizileri toplama çıkartma bölme çarpma yapabilirim DİZİ ELEMANLARINA YAPILIR BU İŞLEMLER
+print(last_array*last_array)
+print(last_array-last_array)
+#last_array.max() = np.max(last_array BU İKİSİ AYNI ŞEYDİR.LİSTENİN MAX ELEMANINI BULMAK İÇİN.
+
+np.sqrt(last_array)
+print(np.sqrt(last_array)) KAREKÖKÜNÜ ALDIRDIM.
+ DAHASI VAR İHTİYACA GÖRE BULUNABİLİR.
+
+
+
+
+
+
+
+
+
+
+
+
+ 

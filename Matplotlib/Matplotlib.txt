@@ -1,0 +1,137 @@
+MATPLOTLİB
+------------
+%matplotlib inline jupiter notebookta grafiklerde sorun yaşamamak için bunu yaz.Çalıştır.
+-----------
+
+import numpy as np
+import matplotlib.pyplot as plt
+yazarak hem numpyı hemde matplotlibi ekledim.
+age_list = [20,25,30,35,40,45,50,55,60]
+age_list_numpy = np.array(age_list)
+weight_list_numpy = np.array(weight_list)
+ile dizileri numpy dizisi haline çevirdim.
+
+plt.plot(age_list_numpy,weight_list_numpy,"r")
+plt.plot ile grafiğimin x ve y eksenine gerekn değerleri için gereken numpy dizilerini verdim.
+(Sondaki "r" ile grafiğin çizgilerinin rengini değiştirdim.)
+
+plt.xlabel("Age")
+ x eksenin yaz olarak adlandırdı.
+
+plt.ylabel("Weight")
+y eksenini kilo olarak adlandırdı.
+
+plt.title("Age - Weight Graph")
+grafiğin başlığını plt.title ile yaptı.
+
+plt.show()
+Bazen grafiğin gösterilmesinde sorun çıkabiliyor bunun için plt.show() kullanılır.SORUN DÜZELİR.
+
+----------------
+my_numpy1 = np.linspace(0,15,20) ile 0 dan 15 e kadar 20 tane eşit sayı oluşturdum(LİNEER)
+
+my_numpy2 = my_numpy1 ** 3 başka bir dizi oluşturdum o da ilkinin 3 üssü oldu.
+
+plt.plot(my_numpy1,my_numpy2,"g*-")
+ile b,r grafik oluşturdum. X ve Y eksnini verdim.
+***Ama ben grafiğin regiyle beraber çizgiyi de değiştirmek istiyorsam g*- yaparak normalde düz çizgi ama veri  noktalarında yıldız yapabilirim.
+***g-- ile noktalı çizgi yapabilirim.
+***g* ile sadece veri noktalarında * ile gösterim yapabilirim. G RENK
+Bunu ihtiyacıma göre yapabilirim.ÖNEMLİ.
+
+--------
+) #1 row, 2 column, 1. graph
+
+plt.subplot(1,2,2)
+plt.plot(my_numpy2,my_numpy1,"g*")
+
+aynı anda iki tane grafiği karşılaştırmak isteyebilirim.BUNUN İÇİN
+plt.subplot(1,2,1) SUBPLOT İLE 1 SATIR 2 KOLON VE 1.Sİ BU DİYEREK İLK GRAFİĞİM İÇİN GEREKEN VERİLERİ GİRİYORUM.
+plt.plot(my_numpy1,my_numpy2,"r--")
+DAHA SONRA DİĞER GRAFİĞİ DE GİRMEK ZORUNDAYIM
+DİĞER GRAFİĞİ DE
+plt.subplot(1,2,2) İLE TANITIP
+plt.plot(my_numpy2,my_numpy1,"g*") İLE YAZDIRIYORUM.
+bunun sonucunda iki tane grafik yazdırılıcak yan yana (çünkü satır 1 kolon 2)
+birisi kırmızı noktalı olurken diğeri yeşil ve veri noktaları * lı olcak
+ÖNEMLİİİ
+---------------
+figure ile grafiklerimin boyutunu değiştirip
+iç içe olmasını sağlayabilirim.
+
+my_figure = plt.figure() 
+ile figure tanımladım.
+my_axes = my_figure.add_axes([0.1,0.1,0.5,0.5])
+baştaki 0.1 ler grafiğin başlayacagı x ve y eksenleri iken diğğer 0.5 ler grafiğin x ve y eksenindeki boyutu.BU AYARLARLA GRAFİĞİN HEM YERİNİ HEMDE YÜKSEKLĞİNİ AYARLAYABİLİRİM.
+
+my_axes.plot(my_numpy1,my_numpy2,"g*")
+GRAFİĞİMİ YAZDIRDIM
+my_axes.set_xlabel("X Data")
+my_axes.set_ylabel("Y Data")
+my_axes.set_title("Graph Title")
+X VE Y EKSENİNİ ADLANDIRDIM GRAFİĞE BAŞLIK KOYDUM.
+
+------
+İÇİÇE GRAFİK
+-------
+my_figure2 = plt.figure()
+
+
+my_axes3 = my_figure2.add_axes([0.1,0.1,0.9,0.9])
+İLE 0.1 DEN BAŞLAYAN 0.9 LUK BİR GRAFİK ÇİZDİM.
+my_axes3.plot(my_numpy1,my_numpy2,"r*-")
+KIRMIZI VE *- LI OLCAK
+my_axes3.set_xlabel("X Data Large")
+my_axes3.set_ylabel("Y Data Large")
+my_axes3.set_title("Large Graph")
+İSİMLENDİRDİM.
+
+my_axes2 = my_figure2.add_axes([0.25,0.4,0.3,0.3])
+AXES BOYUTLAR VE YERİ
+DİĞER GRAFİĞİ 0.25 VE 0.4 NOKTASINDAN0.3 LÜK BİR KARE ŞEKLİNDE OLUŞTURDUM.
+my_axes2.plot(my_numpy1,my_numpy2,"g*")
+my_axes2.set_xlabel("X Data Small")
+my_axes2.set_ylabel("Y Data Small")
+my_axes2.set_title("Small Graph")
+
+
+BÖYLELİKLE İÇ İÇE GRAFİKLER OLUŞMUŞ OLDU.
+---------------------
+(my_fig, my_axe) = plt.subplots()
+İLE MY_FİG VE MY_AXE İ OTOMATİK 1 OLAAK YAZDIRDI.İSTEDİĞİM DEĞERİ GİREBİLİRDİM.
+my_numpy3 = np.linspace(0,15,20)
+0 DAN 15 E KDAR 20 TANE SAYI GİRDİ.
+my_numpy4 = my_numpy3 ** 2
+ÜSSÜ 2 SİNİ ALDI.
+my_axe.plot(my_numpy3,my_numpy4, color="#CD621D", alpha=1)
+RENK DEĞİŞTİRDİ RENK SERBEST. SAYDAMLIKTA AYARLANABİLİR.
+my_axe.plot(my_numpy4,my_numpy3, color="#B81DCD", alpha=0.9)
+AYNI ŞEKİLDE.
+
+----------------
+
+(new_fig, new_axe) = plt.subplots() OLUŞTURDUK TABLO
+new_axe.plot(my_numpy3, my_numpy3 + 2, color="#B81DCD", linewidth = 2.4)
+new_axe.plot(my_numpy3, my_numpy3 + 3, color="#1DCDCA", linewidth = 1.4)
+new_axe.plot(my_numpy3, my_numpy3 + 4, color="blue", linewidth = 1.4, linestyle="-.")
+new_axe.plot(my_numpy3, my_numpy3 + 5, color="green", linewidth = 1.4, linestyle=":")
+new_axe.plot(my_numpy3, my_numpy3 + 5, color="red", linewidth = 1.4, linestyle="--", marker="o")
+new_axe.plot(my_numpy3, my_numpy3 + 6, color="black", linewidth = 1.4, linestyle="--", marker="+", markersize=8)
+
+BURADAKİ KODLARDA COLOR SADECE BAZI RENKLERE BAĞLI DEĞİL İSTEDİĞİMİZ RENGİ AYARLARIZ ÇİZGFİNİN KALINLIGINI AYARLARIZ.
+GRAFİĞİN ÇİZİLECEK KALEMİNİ AYARLAYABİLİYORUZ.
+VERİ İŞARETLERİNDE Kİ İŞARETÇİYİ VE İŞARETÇİNİN BOYUTUNU AYARLAYBİLİYORUZ.
+
+--------------
+plt.scatter(my_numpy3, my_numpy4) ile dağılım grafiği çizebiliyoruz.
+------
+histogram
+ new_numpy = np.random.randint(0,100,40) 0la 100 arasında rastgele 40 tane sayı oluştu.
+plt.hist(new_numpy) bunu da histogramla çizdirirsem dizideki hangi sayıdan kaç tane var diye grafik oluşturur.YANİ YOGUNLUK GRAFİĞİ OLUŞUR.
+
+
+
+
+
+
+

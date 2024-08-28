@@ -1,0 +1,18 @@
+Debugging
+
+Debugging demek koddaki hataları çözme işidir.Bunu yaparken chatgpt ye stackoverflow a bakabilirim.Koddaki hataların çözümleri yüzde 90 buradadır.
+
+Yapay zeka olarak chat gpt ve bard kullanabilirsin.
+
+Yazdıgım uzun bir kodda hata varsa ve bu hatayı çözemiyorsam breakpoint kullanabilirim.Bunu yapmak için çalıştıgımdan şüpheki oldugum satıra gelip orayı kırmızı noktayla işaretliyorum.Daha sonra çalıştır butonunun yanındaki debug etme tuşuna basarak kodumu debug edebiliyorum.Bunun sayesinde kodum debug edilmiş oluyor ve farklı bir ekran açılıyor.Bu ekrandaki step into ve step over tuşlarıyla o anki satırın içine girip adımları takip edebilirim (step into) yada step over ile o satırı atlayıp kodumun çalışmasına devam edebilirim. Debug tuşuyla açılan ekranda o anki değişkenlerimin durumunu görebilirim.
+
+Büyük projelerde işime yarayabilir.
+
+Detaylı Bilgi Edinmek İçin: 
+https://www.jetbrains.com/help/pycharm/debugging-your-first-python-application.html
+
+
+
+
+
+
