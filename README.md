@@ -32,3 +32,66 @@ Bu projeye katkıda bulunmak isterseniz, aşağıdaki adımları izleyebilirsini
 
 ## İletişim
 Sorularınız veya önerileriniz için mustafa.durmazer@icloud.com adresinden benimle iletişime geçebilirsiniz.
+
+
+
+-----------------------------------
+
+
+Python Projects and Notes
+About the Project
+
+This repository contains various projects implemented in Python, as well as notes on the Python programming language. Each file focuses on a specific topic or project and provides practical examples to help improve coding skills.
+
+Contents
+
+Api Json Format: Examples of retrieving and processing data from APIs in JSON format.
+
+Api İle Kur Bilgisi: Application to get exchange rate information using an API.
+
+BackgroundRemover: Application to remove the background from images.
+
+Debugging: Techniques and examples for debugging in Python.
+
+Matplotlib: Examples of data visualization using the Matplotlib library.
+
+Modules: Notes on Python modules and their usage.
+
+NumPy: Examples using the NumPy library for scientific computations.
+
+Pandas: Examples for data analysis and processing using Pandas.
+
+PdfConverter: Application for converting PDF files.
+
+SpeedTest: Internet speed test application.
+
+TasKagitMakas: Rock-Paper-Scissors game.
+
+Udemy Terminal Operations: Terminal commands and operations.
+
+WebSiteCrawler: Web scraping application for collecting data from websites.
+
+Git Bash Commands.txt: A list of commonly used Git Bash commands.
+
+Turtle Terms.txt: Basic terms and notes related to the Python Turtle module.
+
+tkinter.txt: Notes and example applications using the Tkinter library.
+
+Usage
+
+This repository can be used as a resource for developing different Python projects or learning about specific topics. The content is organized to be useful for developers of all skill levels.
+
+Contributing
+
+If you would like to contribute to this project, follow these steps:
+
+Fork the repository.
+
+Make your changes.
+
+Submit a pull request.
+
+Contact
+
+For questions or suggestions, you can contact me at mustafa.durmazer@icloud.com
+.
